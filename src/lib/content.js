@@ -43,6 +43,51 @@ export async function loadArticlesClient() {
 }
 
 /**
+ * Charge tous les projets Markdown côté client (portfolio)
+ * Schéma frontmatter recommandé:
+ * - title: string
+ * - slug: string (optionnel, sinon dérivé du fichier)
+ * - summary: string (ou excerpt)
+ * - date: YYYY-MM-DD
+ * - tags: string[] (optionnel)
+ * - stack: string[] (optionnel)
+ * - demo: string (URL, optionnel)
+ * - repo: string (URL, optionnel)
+ */
+export async function loadProjectsClient() {
+  try {
+    const modules = import.meta.glob('../content/portfolio/*.md', { as: 'raw' })
+    const projects = []
+
+    for (const [path, loader] of Object.entries(modules)) {
+      try {
+        const raw = await loader()
+        const { data, content } = matter(raw)
+
+        projects.push({
+          title: data.title || 'Sans titre',
+          slug: data.slug || path.split('/').pop().replace('.md', ''),
+          summary: data.summary || data.excerpt || '',
+          date: data.date || new Date().toISOString().split('T')[0],
+          tags: Array.isArray(data.tags) ? data.tags : (data.tags ? String(data.tags).split(',').map(s => s.trim()) : []),
+          stack: Array.isArray(data.stack) ? data.stack : (data.stack ? String(data.stack).split(',').map(s => s.trim()) : []),
+          demo: data.demo || '',
+          repo: data.repo || '',
+          content: marked(content),
+        })
+      } catch (err) {
+        console.error(`❌ Erreur en parsant ${path}:`, err.message)
+      }
+    }
+
+    return projects.sort((a, b) => new Date(b.date) - new Date(a.date))
+  } catch (err) {
+    console.error('❌ Erreur en chargeant les projets:', err)
+    return []
+  }
+}
+
+/**
  * Version Node.js pour le SSG (build-static.js)
  * À utiliser côté serveur uniquement
  */
