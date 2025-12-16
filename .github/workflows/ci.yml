@@ -13,9 +13,12 @@ jobs:
       id-token: write
     
     steps:
-    - uses: actions/checkout@v2
-    - run: npm audit
-    - run: npm ci
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - run: npm install
     - run: npm run build
     - uses: actions/upload-pages-artifact@v4
       with:
