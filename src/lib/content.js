@@ -7,29 +7,37 @@ import { marked } from 'marked'
  * @param {string} pattern - Glob pattern (ex: '../content/blog/*.md')
  * @returns {Promise<Array>} Array d'articles triés par date décroissante
  */
-export async function loadArticlesClient(pattern) {
+export async function loadArticlesClient() {
   try {
+    // import.meta.glob() doit avoir un pattern STATIQUE
     const modules = import.meta.glob('../content/blog/*.md', { as: 'raw' })
+    console.log('📚 Modules chargés:', Object.keys(modules))
+    
     const articles = []
 
     for (const [path, loader] of Object.entries(modules)) {
-      const raw = await loader()
-      const { data, content } = matter(raw)
+      try {
+        const raw = await loader()
+        const { data, content } = matter(raw)
 
-      articles.push({
-        title: data.title || 'Sans titre',
-        slug: data.slug || path.split('/').pop().replace('.md', ''),
-        excerpt: data.excerpt || '',
-        theme: data.theme || 'Général',
-        date: data.date || new Date().toISOString().split('T')[0],
-        author: data.author || 'Anonyme',
-        content: marked(content),
-      })
+        articles.push({
+          title: data.title || 'Sans titre',
+          slug: data.slug || path.split('/').pop().replace('.md', ''),
+          excerpt: data.excerpt || '',
+          theme: data.theme || 'Général',
+          date: data.date || new Date().toISOString().split('T')[0],
+          author: data.author || 'Anonyme',
+          content: marked(content),
+        })
+      } catch (err) {
+        console.error(`❌ Erreur en parsant ${path}:`, err.message)
+      }
     }
 
+    console.log(`✅ ${articles.length} articles chargés`)
     return articles.sort((a, b) => new Date(b.date) - new Date(a.date))
   } catch (err) {
-    console.error('Erreur en chargeant les articles:', err)
+    console.error('❌ Erreur en chargeant les articles:', err)
     return []
   }
 }
