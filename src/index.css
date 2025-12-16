@@ -10,3 +10,17 @@ body {
   color: #e2e8f0;
   background: transparent;
 }
+
+/* Stylisation des blocs de code */
+.prose pre {
+  @apply bg-slate-900 border border-slate-700 rounded-lg overflow-x-auto;
+  padding: 1rem;
+}
+
+.prose code {
+  @apply bg-slate-800 text-slate-100 px-2 py-1 rounded font-mono text-sm;
+}
+
+.prose pre code {
+  @apply bg-transparent text-slate-100 px-0 py-0;
+} 

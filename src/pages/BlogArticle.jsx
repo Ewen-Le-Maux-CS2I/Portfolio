@@ -54,7 +54,14 @@ export function BlogArticle({ slug }) {
 
   return (
     <div className="max-w-4xl w-full mx-auto">
-      <AppWindow title={title}>
+      <AppWindow
+        title={title}
+        actions={
+          <a href={`${basePath}blog`} className="btn btn-outline btn-sm">
+            ← Retour au blog
+          </a>
+        }
+      >
         {/* En-tête */}
         <div className="space-y-3 pb-6 border-b border-slate-200">
           <h1 className="text-4xl font-bold text-slate-900">{title}</h1>
@@ -71,12 +78,7 @@ export function BlogArticle({ slug }) {
           <div dangerouslySetInnerHTML={{ __html: content }} />
         </div>
 
-        {/* Lien retour */}
-        <div className="mt-8 pt-6 border-t border-slate-200">
-          <a href={`${basePath}blog`} className="btn btn-outline btn-sm">
-            ← Retour au blog
-          </a>
-        </div>
+        {/* Lien retour déplacé dans l'en-tête via AppWindow.actions */}
       </AppWindow>
     </div>
   )

@@ -1,5 +1,5 @@
 ---
-title: SSG avec Preact : guide complet
+title: SSG avec Preact - Le guide complet
 slug: ssg-preact-guide
 excerpt: Comment implémenter un générateur de site statique avec Preact et Node.js pour un portfolio performant.
 theme: SSG

@@ -79,7 +79,8 @@ function renderArticleHtml({ title, excerpt, theme, date, author, content, slug 
               h('span', { className: 'w-3 h-3 rounded-full bg-emerald-400' })
             ),
             h('h1', { className: 'text-2xl font-semibold text-slate-800' }, title)
-          )
+          ),
+          h('a', { href: `${basePath}blog`, className: 'btn btn-outline btn-sm' }, '← Retour à la liste des articles')
         ),
         // Content
         h(
@@ -101,11 +102,6 @@ function renderArticleHtml({ title, excerpt, theme, date, author, content, slug 
             className: 'prose prose-sm max-w-none text-slate-900 py-6',
             dangerouslySetInnerHTML: { __html: content },
           }),
-          h(
-            'div',
-            { className: 'mt-8 pt-6 border-t border-slate-200' },
-            h('a', { href: `${basePath}blog`, className: 'btn btn-outline btn-sm' }, '← Retour au blog')
-          )
         )
       )
     )
