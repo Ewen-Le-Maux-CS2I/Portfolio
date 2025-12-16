@@ -35,19 +35,16 @@ export function Blog() {
 
   if (loading) {
     return (
-      <div className="max-w-4xl w-full mx-auto">
-        <AppWindow title="Blog">
-          <div className="alert alert-info">
-            <span>Chargement des articles...</span>
-          </div>
-        </AppWindow>
-      </div>
+      <AppWindow title="Blog">
+        <div className="alert alert-info">
+          <span>Chargement des articles...</span>
+        </div>
+      </AppWindow>
     )
   }
 
   return (
-    <div className="max-w-4xl w-full mx-auto">
-      <AppWindow title="Blog">
+    <AppWindow title="Blog">
         {/* Barre de recherche */}
         <div className="space-y-4 pb-6 border-b border-slate-200">
           <div className="form-control">
@@ -119,6 +116,5 @@ export function Blog() {
           </div>
         )}
       </AppWindow>
-    </div>
   )
 }

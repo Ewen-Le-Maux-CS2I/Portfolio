@@ -23,45 +23,40 @@ export function BlogArticle({ slug }) {
 
   if (loading) {
     return (
-      <div className="max-w-4xl w-full mx-auto">
-        <AppWindow title="Chargement...">
-          <div className="alert alert-info">
-            <span>Chargement de l'article...</span>
-          </div>
-        </AppWindow>
-      </div>
+      <AppWindow title="Chargement...">
+        <div className="alert alert-info">
+          <span>Chargement de l'article...</span>
+        </div>
+      </AppWindow>
     )
   }
 
   if (notFound || !article) {
     return (
-      <div className="max-w-4xl w-full mx-auto">
-        <AppWindow title="Article non trouvé">
-          <div className="alert alert-error">
-            <span>L'article "{slug}" n'existe pas.</span>
-          </div>
-          <div className="mt-4">
-            <a href={`${basePath}blog`} className="btn btn-primary btn-sm">
-              ← Retour au blog
-            </a>
-          </div>
-        </AppWindow>
-      </div>
+      <AppWindow title="Article non trouvé">
+        <div className="alert alert-error">
+          <span>L'article "{slug}" n'existe pas.</span>
+        </div>
+        <div className="mt-4">
+          <a href={`${basePath}blog`} className="btn btn-primary btn-sm">
+            ← Retour au blog
+          </a>
+        </div>
+      </AppWindow>
     )
   }
 
   const { title, excerpt, theme, date, author, content } = article
 
   return (
-    <div className="max-w-4xl w-full mx-auto">
-      <AppWindow
-        title={title}
-        actions={
-          <a href={`${basePath}blog`} className="btn btn-outline btn-sm">
-            ← Retour au blog
-          </a>
-        }
-      >
+    <AppWindow
+      title={title}
+      actions={
+        <a href={`${basePath}blog`} className="btn btn-outline btn-sm">
+          ← Retour au blog
+        </a>
+      }
+    >
         {/* En-tête */}
         <div className="space-y-3 pb-6 border-b border-slate-200">
           <h1 className="text-4xl font-bold text-slate-900">{title}</h1>
@@ -80,6 +75,5 @@ export function BlogArticle({ slug }) {
 
         {/* Lien retour déplacé dans l'en-tête via AppWindow.actions */}
       </AppWindow>
-    </div>
   )
 }

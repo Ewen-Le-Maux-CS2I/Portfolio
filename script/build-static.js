@@ -60,49 +60,45 @@ function renderArticleHtml({ title, excerpt, theme, date, author, content, slug 
   return renderToString(
     h(
       'div',
-      { className: 'max-w-4xl w-full mx-auto' },
+      { className: 'bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden max-w-[1280px] w-full mx-auto' },
+      // Header
       h(
         'div',
-        { className: 'bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden' },
-        // Header
+        { className: 'bg-slate-50 border-b border-slate-100 px-6 py-4 flex items-center justify-between' },
         h(
           'div',
-          { className: 'bg-slate-50 border-b border-slate-100 px-6 py-4 flex items-center justify-between' },
+          { className: 'flex items-center gap-3' },
           h(
             'div',
-            { className: 'flex items-center gap-3' },
-            h(
-              'div',
-              { className: 'flex gap-2' },
-              h('span', { className: 'w-3 h-3 rounded-full bg-rose-400' }),
-              h('span', { className: 'w-3 h-3 rounded-full bg-amber-400' }),
-              h('span', { className: 'w-3 h-3 rounded-full bg-emerald-400' })
-            ),
-            h('h1', { className: 'text-2xl font-semibold text-slate-800' }, title)
+            { className: 'flex gap-2' },
+            h('span', { className: 'w-3 h-3 rounded-full bg-rose-400' }),
+            h('span', { className: 'w-3 h-3 rounded-full bg-amber-400' }),
+            h('span', { className: 'w-3 h-3 rounded-full bg-emerald-400' })
           ),
-          h('a', { href: `${basePath}blog`, className: 'btn btn-outline btn-sm' }, '← Retour à la liste des articles')
+          h('h1', { className: 'text-2xl font-semibold text-slate-800' }, title)
         ),
-        // Content
+        h('a', { href: `${basePath}blog`, className: 'btn btn-outline btn-sm' }, '← Retour à la liste des articles')
+      ),
+      // Content
+      h(
+        'div',
+        { className: 'p-8 space-y-4' },
         h(
           'div',
-          { className: 'p-8 space-y-4' },
+          { className: 'space-y-3 pb-6 border-b border-slate-200' },
+          h('p', { className: 'text-lg text-slate-600' }, excerpt),
           h(
             'div',
-            { className: 'space-y-3 pb-6 border-b border-slate-200' },
-            h('p', { className: 'text-lg text-slate-600' }, excerpt),
-            h(
-              'div',
-              { className: 'flex items-center gap-3 text-sm text-slate-500' },
-              h('span', { className: 'badge badge-primary' }, theme),
-              h(null, `Par ${author}`),
-              h(null, new Date(date).toLocaleDateString('fr-FR'))
-            )
-          ),
-          h('div', {
-            className: 'prose prose-sm max-w-none text-slate-900 py-6',
-            dangerouslySetInnerHTML: { __html: content },
-          }),
-        )
+            { className: 'flex items-center gap-3 text-sm text-slate-500' },
+            h('span', { className: 'badge badge-primary' }, theme),
+            h(null, `Par ${author}`),
+            h(null, new Date(date).toLocaleDateString('fr-FR'))
+          )
+        ),
+        h('div', {
+          className: 'prose prose-sm max-w-none text-slate-900 py-6',
+          dangerouslySetInnerHTML: { __html: content },
+        })
       )
     )
   )
