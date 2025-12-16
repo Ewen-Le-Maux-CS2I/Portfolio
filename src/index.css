@@ -1,2 +1,6 @@
-@tailwind base;
-@plugin daisyui;
+@import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+  /* Config personnalisée optionnelle */
+}
