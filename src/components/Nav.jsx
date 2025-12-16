@@ -2,13 +2,13 @@
 import { h, Fragment } from 'preact'
 import { useEffect, useState } from 'preact/hooks'
 
-function formatDateTime(now: Date) {
+function formatDateTime(now) {
     const date = now.toLocaleDateString('fr-FR', { weekday: 'short', day: '2-digit', month: 'short' })
     const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
     return { date, time }
 }
 
-export function Nav({ basePath = '/' }: { basePath?: string }) {
+export function Nav({ basePath = '/' }) {
     const [{ date, time }, setNow] = useState(() => formatDateTime(new Date()))
 
     useEffect(() => {
