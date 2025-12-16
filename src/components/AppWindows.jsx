@@ -1,6 +1,6 @@
 export function AppWindow({ title, children, actions, className = '' }) {
   return (
-    <div className={`bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden ${className}`}>
+    <div className={`bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden max-w-[1280px] w-full mx-auto ${className}`}>
       <div className="bg-slate-50 border-b border-slate-100 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex gap-2">

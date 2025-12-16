@@ -2,6 +2,7 @@ import Router from 'preact-router'
 import { useState } from 'preact/hooks'
 import { Home } from './pages/Home'
 import { Blog } from './pages/Blog'
+import { BlogArticle } from './pages/BlogArticle'
 import { Portfolio } from './pages/Portfolio'
 import { Layout } from './components/Layout'
 
@@ -17,6 +18,7 @@ export function App() {
       <Router onChange={({ url }) => setCurrentPath(url)}>
         <Home path={`${basePath}`} />
         <Blog path={`${basePath}blog`} />
+        <BlogArticle path={`${basePath}blog/:slug`} />
         <Portfolio path={`${basePath}portfolio`} />
       </Router>
     </Layout>
