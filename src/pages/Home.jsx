@@ -1,22 +1,13 @@
+const basePath = import.meta.env.BASE_URL
+
 export function Home() {
   return (
-    <div className="min-h-screen bg-base-100">
-      <div className="hero min-h-screen">
-        <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Portfolio & Blog</h1>
-            <p className="py-6">
-              Bienvenue sur mon site personnel. Découvrez mes projets et mes articles.
-            </p>
-            <div className="flex gap-4 justify-center">
-              <a href="/portfolio" className="btn btn-primary">
-                Voir le Portfolio
-              </a>
-              <a href="/blog" className="btn btn-secondary">
-                Lire le Blog
-              </a>
-            </div>
-          </div>
+    <div className="min-h-[70vh] flex items-center justify-center">
+      <div className="text-center space-y-6 text-slate-50">
+
+        <div className="space-y-3">
+          <h1 className="text-5xl md:text-6xl font-bold drop-shadow">Ewen</h1>
+          <p className="text-lg md:text-xl text-slate-200 italic">Développeur Full Stack</p>
         </div>
       </div>
     </div>
