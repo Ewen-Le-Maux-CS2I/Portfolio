@@ -1,9 +1,8 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui"{
+  themes: light --defautl --prefersdark;
+};
 
-@theme {
-  /* Config personnalisée optionnelle */
-}
 
 body {
   min-height: 100vh;

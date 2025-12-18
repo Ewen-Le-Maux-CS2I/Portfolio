@@ -24,10 +24,7 @@ Site en 2 partie : le portfolio et le blog
 
 ## Stack et implémentation
 - **Front**: Preact + Tailwind CSS pour la composition de composants rapides.
-- **Charts**: Chart.js avec adaptateur temps réel.
-- **Backend temps réel**: Supabase pour les events et la persistance.
-- **Build**: Vite + TypeScript pour un DX rapide.
-
+- **Articles**: Markdown compiler en html lors du buildj
 ## Liens
 - Démo: https://ewen-le-maux-cs2i.github.io/Portfolio/
 - Code: https://github.com/Ewen-Le-Maux-CS2I/Portfolio
