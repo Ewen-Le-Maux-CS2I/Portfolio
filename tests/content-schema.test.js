@@ -9,13 +9,22 @@ const PORTFOLIO_DIR = path.join(CONTENT_ROOT, 'portfolio')
 
 /**
  * Valide qu'une date est au format YYYY-MM-DD
+ * Accepte une string ou un objet Date (YAML non quoté)
  */
-function isValidDate(dateString) {
-  if (!dateString || typeof dateString !== 'string') return false
-  const match = dateString.match(/^\d{4}-\d{2}-\d{2}$/)
-  if (!match) return false
-  const date = new Date(dateString)
-  return !isNaN(date.getTime())
+function isValidDate(value) {
+  if (!value) return false
+  let str
+  if (value instanceof Date) {
+    if (isNaN(value.getTime())) return false
+    str = value.toISOString().slice(0, 10)
+  } else if (typeof value === 'string') {
+    str = value
+  } else {
+    return false
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(str)) return false
+  const d = new Date(str)
+  return !isNaN(d.getTime())
 }
 
 /**

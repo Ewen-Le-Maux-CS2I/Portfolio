@@ -56,15 +56,9 @@ npm run test         # exécute toute la suite
 npm run test:watch   # relance à chaque changement
 ```
 - Portée actuelle des tests:
-	- Validation du schéma de frontmatter des contenus (blog/portfolio) dans `tests/`.
-- Conseils:
-	- Cibler un fichier: `vitest tests/mon-fichier.test.js`
-	- Cibler un test: `vitest -t "nom du test"`
+	- Validation du schéma de frontmatter des contenus markdown.
 
-## Adapter ou étendre
-- Pour activer le bundle JS sur certaines pages, passer `includeScript:true` dans l’appel à `generateHtml` correspondant.
-- Pour changer le chemin de base (basePath) ou les options markdown (`MarkdownIt`), modifier les constantes en tête de `scripts/build-static.js`.
-- Pour forcer l’échec en cas d’avertissements lint, ajouter `--max-warnings=0` à la commande `lint`.
+
 
 ## Notes CI
 - La CI exécute lint, tests, SSG/build et déploie `dist/`. Une étape vérifie la structure imposée par `.github/instructions.md` (script SSG dans `scripts/`).
