@@ -65,7 +65,7 @@ function parseArticle(filePath) {
 /**
  * Rend un article en HTML Preact
  */
-function renderArticleHtml({ title, excerpt, theme, date, author, content, slug }) {
+function renderArticleHtml({ title, excerpt, theme, date, author, content, slug: _slug }) {
   return renderToString(
     h(
       'div',

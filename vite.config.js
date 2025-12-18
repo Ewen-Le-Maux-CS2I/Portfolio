@@ -1,7 +1,5 @@
 import { defineConfig } from 'vite'
 import preact from '@preact/preset-vite'
-import { Buffer } from 'buffer'
-
 // https://vite.dev/config/
 export default defineConfig({
   base: '/Portfolio/',
