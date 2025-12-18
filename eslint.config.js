@@ -23,7 +23,6 @@ export default [
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
-      ecmaFeatures: { jsx: true },
     },
     rules: {
       // allow unused vars pattern for JS as well
