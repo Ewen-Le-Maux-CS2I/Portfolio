@@ -1,7 +1,5 @@
 /** @type {import('eslint').Linter.FlatConfig[]} */
 import js from "@eslint/js";
-import tseslint from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
 import reactHooks from "eslint-plugin-react-hooks";
 
 export default [
@@ -14,6 +12,42 @@ export default [
     ],
   },
 
+  // Node scripts (SSG) should be linted with Node env
+  {
+    files: ["scripts/**", "scripts/**/*.js", "script/**", "script/**/*.js"],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+      },
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+        require: 'readonly',
+        module: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+      },
+    },
+  },
+
+  // Autoriser les helpers Node dans le loader côté serveur
+  {
+    files: ["src/lib/content.js"],
+    languageOptions: {
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+      },
+      globals: {
+        require: 'readonly',
+        module: 'readonly',
+        process: 'readonly',
+        console: 'readonly',
+      },
+    },
+  },
+
   // Base JS rules
   js.configs.recommended,
 
@@ -21,8 +55,21 @@ export default [
   {
     files: ["**/*.js", "**/*.jsx"],
     languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },
+      },
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        navigator: 'readonly',
+        location: 'readonly',
+        history: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        console: 'readonly',
+      },
     },
     rules: {
       // allow unused vars pattern for JS as well
@@ -37,8 +84,21 @@ export default [
       "react-hooks": reactHooks,
     },
     languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
+      parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
+        ecmaFeatures: { jsx: true },
+      },
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        navigator: 'readonly',
+        location: 'readonly',
+        history: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        console: 'readonly',
+      },
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
