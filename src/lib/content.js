@@ -1,5 +1,7 @@
 import matter from 'gray-matter'
-import { marked } from 'marked'
+import MarkdownIt from 'markdown-it'
+
+const md = new MarkdownIt({ html: true, linkify: true, breaks: true })
 
 /**
  * Charge tous les articles Markdown côté client avec Vite
@@ -8,7 +10,6 @@ import { marked } from 'marked'
  * @returns {Promise<Array>} Array d'articles triés par date décroissante
  */
 export async function loadArticlesClient() {
-  // Always load dynamically from Markdown (dev) — in production listings are pre-rendered
   try {
     const modules = import.meta.glob('../content/blog/*.md', { as: 'raw' })
     const articles = []
@@ -25,7 +26,7 @@ export async function loadArticlesClient() {
           theme: data.theme || 'Général',
           date: data.date || new Date().toISOString().split('T')[0],
           author: data.author || 'Anonyme',
-          content: marked(content),
+          content: md.render(content),
         })
       } catch (err) {
         console.error(`❌ Erreur en parsant ${path}:`, err.message)
@@ -71,7 +72,7 @@ export async function loadProjectsClient() {
           stack: Array.isArray(data.stack) ? data.stack : (data.stack ? String(data.stack).split(',').map(s => s.trim()) : []),
           demo: data.demo || '',
           repo: data.repo || '',
-          content: marked(content),
+          content: md.render(content),
         })
       } catch (err) {
         console.error(`❌ Erreur en parsant ${path}:`, err.message)
@@ -109,7 +110,7 @@ export function loadArticlesServer(contentDir) {
           theme: data.theme || 'Général',
           date: data.date || new Date().toISOString().split('T')[0],
           author: data.author || 'Anonyme',
-          content: marked(content),
+          content: md.render(content),
         }
       })
       .sort((a, b) => new Date(b.date) - new Date(a.date))

@@ -3,12 +3,16 @@ import path from 'path'
 import { renderToString } from 'preact-render-to-string'
 import { h } from 'preact'
 import matter from 'gray-matter'
-import { marked } from 'marked'
+import MarkdownIt from 'markdown-it'
 
 // Dossiers
 const CONTENT_DIR = path.resolve('src/content')
 const DIST_DIR = path.resolve('dist')
-const basePath = '/Portfolio/' // À adapter selon ton repo GitHub
+const basePath = '/Portfolio/'
+const templatePath = path.resolve('index.html')
+const baseTemplate = fs.readFileSync(templatePath, 'utf-8')
+
+const md = new MarkdownIt({ html: true, linkify: true, breaks: true })
 
 console.log('🔨 Démarrage du build statique SSG...\n')
 
@@ -18,21 +22,22 @@ fs.mkdirSync(DIST_DIR, { recursive: true })
 /**
  * Génère le HTML complet (sans JSX)
  */
-function generateHtml({ title, content }) {
-  return `<!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${title} - Portfolio Blog</title>
-    <link rel="icon" type="image/svg+xml" href="${basePath}vite.svg" />
-    <link rel="stylesheet" href="${basePath}index.css" />
-  </head>
-  <body>
-    <div id="app">${content}</div>
-    <script type="module" src="${basePath}src/main.jsx"></script>
-  </body>
-</html>`
+function generateHtml({ title, content, includeScript = false }) {
+  let html = baseTemplate
+    .replace(/<title>.*<\/title>/, `<title>${title} - Portfolio Blog</title>`)
+    .replace('<div id="app"></div>', `<div id="app">${content}</div>`)
+
+  // Ajuster ou supprimer le script selon le besoin
+  if (includeScript) {
+    html = html.replace(
+      /<script type="module" src="[^"]*main\.jsx"><\/script>/,
+      `<script type="module" src="${basePath}src/main.jsx"></script>`
+    )
+  } else {
+    html = html.replace(/\s*<script type="module" src="[^"]*main\.jsx"><\/script>/, '')
+  }
+
+  return html
 }
 
 /**
@@ -49,7 +54,7 @@ function parseArticle(filePath) {
     theme: data.theme || 'Général',
     date: data.date || new Date().toISOString().split('T')[0],
     author: data.author || 'Anonyme',
-    content: marked(content),
+    content: md.render(content),
   }
 }
 
@@ -139,6 +144,7 @@ if (fs.existsSync(blogDir)) {
       const fullHtml = generateHtml({
         title: article.title,
         content: articleHtml,
+        includeScript: false,
       })
 
       writeHtmlPage(output, fullHtml)
@@ -200,7 +206,7 @@ if (fs.existsSync(blogDir)) {
       )
     )
 
-    const full = generateHtml({ title: 'Blog', content: indexHtml })
+    const full = generateHtml({ title: 'Blog', content: indexHtml, includeScript: false })
     writeHtmlPage(path.join(DIST_DIR, 'blog', 'index.html'), full)
     console.log('  ✔ /blog/index.html généré')
   } catch (err) {
@@ -230,7 +236,7 @@ if (fs.existsSync(portfolioDir)) {
         stack: Array.isArray(data.stack) ? data.stack : (data.stack ? String(data.stack).split(',').map(s => s.trim()) : []),
         demo: data.demo || '',
         repo: data.repo || '',
-        content: marked(content),
+        content: md.render(content),
       }
 
       // render project page
@@ -266,7 +272,7 @@ if (fs.existsSync(portfolioDir)) {
       )
 
       const output = path.join(DIST_DIR, 'portfolio', project.slug, 'index.html')
-      const fullHtml = generateHtml({ title: project.title, content: projectHtml })
+      const fullHtml = generateHtml({ title: project.title, content: projectHtml, includeScript: false })
       writeHtmlPage(output, fullHtml)
       console.log(`  ✔ /portfolio/${project.slug}`)
 
@@ -315,7 +321,7 @@ if (fs.existsSync(portfolioDir)) {
       )
     )
 
-    const full = generateHtml({ title: 'Portfolio', content: indexHtml })
+    const full = generateHtml({ title: 'Portfolio', content: indexHtml, includeScript: false })
     writeHtmlPage(path.join(DIST_DIR, 'portfolio', 'index.html'), full)
     console.log('  ✔ /portfolio/index.html généré')
   } catch (err) {
