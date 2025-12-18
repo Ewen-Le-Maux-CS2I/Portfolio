@@ -8,7 +8,8 @@ import MarkdownIt from 'markdown-it'
 // Dossiers
 const CONTENT_DIR = path.resolve('src/content')
 const DIST_DIR = path.resolve('dist')
-const basePath = ''
+// Chemin de base GitHub Pages (doit correspondre à vite.config.js)
+const basePath = '/Portfolio/'
 const templatePath = path.resolve('index.html')
 const baseTemplate = fs.readFileSync(templatePath, 'utf-8')
 
