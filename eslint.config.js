@@ -40,7 +40,6 @@ export default [
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
-      ecmaFeatures: { jsx: true },
     },
     rules: {
       ...reactHooks.configs.recommended.rules,

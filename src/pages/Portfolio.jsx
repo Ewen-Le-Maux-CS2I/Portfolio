@@ -30,9 +30,7 @@ export function Portfolio() {
       {projects.length === 0 ? (
         <div className="alert">
           <span>
-            Aucun projet pour le moment. Ajoutez des fichiers Markdown dans
-            <span className="font-semibold"> src/content/portfolio </span>
-            avec un frontmatter (title, summary, stack, demo, repo, ...).
+            Aucun projet pour le moment.
           </span>
         </div>
       ) : (
@@ -42,7 +40,7 @@ export function Portfolio() {
               key={p.slug}
               role="link"
               tabIndex={0}
-              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow transition hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/60"
+              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow transition hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/60 cursor-pointer"
               onClick={() => {
                 window.location.href = `${basePath}portfolio/${p.slug}`
               }}

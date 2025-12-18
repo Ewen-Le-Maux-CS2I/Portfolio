@@ -8,11 +8,9 @@ import { marked } from 'marked'
  * @returns {Promise<Array>} Array d'articles triés par date décroissante
  */
 export async function loadArticlesClient() {
+  // Always load dynamically from Markdown (dev) — in production listings are pre-rendered
   try {
-    // import.meta.glob() doit avoir un pattern STATIQUE
     const modules = import.meta.glob('../content/blog/*.md', { as: 'raw' })
-    console.log('📚 Modules chargés:', Object.keys(modules))
-    
     const articles = []
 
     for (const [path, loader] of Object.entries(modules)) {
@@ -34,7 +32,6 @@ export async function loadArticlesClient() {
       }
     }
 
-    console.log(`✅ ${articles.length} articles chargés`)
     return articles.sort((a, b) => new Date(b.date) - new Date(a.date))
   } catch (err) {
     console.error('❌ Erreur en chargeant les articles:', err)
@@ -55,6 +52,7 @@ export async function loadArticlesClient() {
  * - repo: string (URL, optionnel)
  */
 export async function loadProjectsClient() {
+  // Always load dynamically from Markdown (dev) — in production listings are pre-rendered
   try {
     const modules = import.meta.glob('../content/portfolio/*.md', { as: 'raw' })
     const projects = []

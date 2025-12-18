@@ -1,7 +1,7 @@
 ---
-title: "Portfolio"
-slug: "portfolio"
-summary: "Tout simplemen le détail du projet sur lequel vous êtes"
+title: "Projet de portfolio et de blog"
+slug: "portfolio-blog"
+summary: "Tout simplement le détail du projet sur lequel vous êtes"
 date: "2025-10-21"
 stack:
   - Preact
