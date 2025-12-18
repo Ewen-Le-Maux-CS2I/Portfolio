@@ -1,7 +1,11 @@
 import matter from 'gray-matter'
 import MarkdownIt from 'markdown-it'
 
-const md = new MarkdownIt({ html: true, linkify: true, breaks: true })
+const md = new MarkdownIt('commonmark', { 
+  html: true, 
+  linkify: true, 
+  breaks: true
+})
 
 /**
  * Charge tous les articles Markdown côté client avec Vite

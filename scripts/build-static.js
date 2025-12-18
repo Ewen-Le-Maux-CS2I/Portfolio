@@ -8,11 +8,15 @@ import MarkdownIt from 'markdown-it'
 // Dossiers
 const CONTENT_DIR = path.resolve('src/content')
 const DIST_DIR = path.resolve('dist')
-const basePath = '/Portfolio/'
+const basePath = ''
 const templatePath = path.resolve('index.html')
 const baseTemplate = fs.readFileSync(templatePath, 'utf-8')
 
-const md = new MarkdownIt({ html: true, linkify: true, breaks: true })
+const md = new MarkdownIt('commonmark', { 
+  html: true, 
+  linkify: true, 
+  breaks: true
+})
 
 console.log('🔨 Démarrage du build statique SSG...\n')
 
