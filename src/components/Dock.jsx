@@ -1,8 +1,8 @@
 const links = (basePath) => [
-  { label: 'Accueil', href: join(basePath, '')},
+  { label: 'Accueil', href: join(basePath)},
   { label: 'Portfolio', href: join(basePath, 'portfolio') },
   { label: 'Blog', href: join(basePath, 'blog') },
-  { label: 'Contact', href: 'mailto:contact@example.com', external: true },
+  { label: 'Contact', href: 'mailto:contact@bob-it.com', external: true },
 ]
 
 function join(base, slug) {
@@ -16,12 +16,22 @@ function normalize(path) {
   return ('/' + path.replace(/^\/+/, '')).replace(/\/+$/, '') || '/'
 }
 
-function isActive(href) {
+function isActive(href, basePath) {
   if (typeof window === 'undefined') return false
+
   const current = normalize(window.location.pathname)
   const target = normalize(href)
+  const root = "/Portfolio"
+
+
+  if (target === root) {
+    return current === root
+  }
+
+  // Autres liens 
   return current === target || current.startsWith(`${target}/`)
 }
+
 
 export function Dock({ basePath = '/' }) {
   return (

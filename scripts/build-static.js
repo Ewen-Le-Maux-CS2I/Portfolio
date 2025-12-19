@@ -27,9 +27,8 @@ fs.mkdirSync(DIST_DIR, { recursive: true })
 /**
  * Génère le HTML complet (sans JSX)
  */
-function generateHtml({ title, content, includeScript = false }) {
+function generateHtml({ content, includeScript = false }) {
   let html = baseTemplate
-    .replace(/<title>.*<\/title>/, `<title>${title} - Portfolio Blog</title>`)
     .replace('<div id="app"></div>', `<div id="app">${content}</div>`)
 
   // Ajuster ou supprimer le script selon le besoin
@@ -147,7 +146,6 @@ if (fs.existsSync(blogDir)) {
 
       const articleHtml = renderArticleHtml(article)
       const fullHtml = generateHtml({
-        title: article.title,
         content: articleHtml,
         includeScript: false,
       })
@@ -211,7 +209,7 @@ if (fs.existsSync(blogDir)) {
       )
     )
 
-    const full = generateHtml({ title: 'Blog', content: indexHtml, includeScript: false })
+    const full = generateHtml({ content: indexHtml, includeScript: false })
     writeHtmlPage(path.join(DIST_DIR, 'blog', 'index.html'), full)
     console.log('  ✔ /blog/index.html généré')
   } catch (err) {
@@ -268,7 +266,7 @@ if (fs.existsSync(portfolioDir)) {
             h('div', { className: 'space-y-3 pb-6 border-b border-slate-200' },
               h('p', { className: 'text-lg text-slate-600' }, project.summary),
               h('div', { className: 'flex items-center gap-3 text-sm text-slate-500' },
-                h('span', { className: 'badge badge-primary' }, new Date(project.date).toLocaleDateString('fr-FR'))
+                h('span', { className: '' }, new Date(project.date).toLocaleDateString('fr-FR'))
               )
             ),
             h('div', { className: 'prose prose-sm max-w-none text-slate-900 py-6', dangerouslySetInnerHTML: { __html: project.content } })
@@ -277,7 +275,7 @@ if (fs.existsSync(portfolioDir)) {
       )
 
       const output = path.join(DIST_DIR, 'portfolio', project.slug, 'index.html')
-      const fullHtml = generateHtml({ title: project.title, content: projectHtml, includeScript: false })
+      const fullHtml = generateHtml({ content: projectHtml, includeScript: false })
       writeHtmlPage(output, fullHtml)
       console.log(`  ✔ /portfolio/${project.slug}`)
 
@@ -326,7 +324,7 @@ if (fs.existsSync(portfolioDir)) {
       )
     )
 
-    const full = generateHtml({ title: 'Portfolio', content: indexHtml, includeScript: false })
+    const full = generateHtml({ content: indexHtml, includeScript: false })
     writeHtmlPage(path.join(DIST_DIR, 'portfolio', 'index.html'), full)
     console.log('  ✔ /portfolio/index.html généré')
   } catch (err) {
