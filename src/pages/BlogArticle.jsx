@@ -50,18 +50,19 @@ export function BlogArticle({ slug }) {
 
   return (
     <AppWindow
-      title={title}
+      title=""
+      headerLayout="column"
       actions={
         <a href={`${basePath}blog`} className="btn btn-outline btn-sm">
           ← Retour au blog
-        </a>
+         </a>
       }
     >
         {/* En-tête */}
-        <div className="space-y-3 pb-6 border-b border-slate-200">
-          <h1 className="text-4xl font-bold text-slate-900">{title}</h1>
-          <p className="text-lg text-slate-600">{excerpt}</p>
-          <div className="flex items-center gap-3 text-sm text-slate-500">
+        <div className="space-y-4 md:space-y-6 pb-6 border-b border-slate-200">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 break-words">{title}</h1>
+          <p className="text-base sm:text-lg text-slate-600">{excerpt}</p>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-slate-500">
             <span className="badge badge-primary">{theme}</span>
             <span>Par {author}</span>
             <span>{new Date(date).toLocaleDateString('fr-FR')}</span>

@@ -50,7 +50,8 @@ export function PortfolioProject({ slug }) {
 
   return (
     <AppWindow
-      title={title}
+      title=""
+      headerLayout="column"
       actions={
         <a href={`${basePath}portfolio`} className="btn btn-outline btn-sm">
           ← Retour au portfolio
@@ -58,6 +59,7 @@ export function PortfolioProject({ slug }) {
       }
     >
       <div className="space-y-4 pb-6 border-b border-slate-200">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 break-words">{title}</h1>
         <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500">
           <span className="badge badge-primary">{new Date(date).toLocaleDateString('fr-FR')}</span>
           {stack?.length > 0 && (
