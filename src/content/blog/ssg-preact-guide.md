@@ -20,7 +20,7 @@ Un SSG (Static Site Generator) pré-render votre site en HTML pur. Parfait pour 
 
 ## Implémentation avec Preact
 
-1. **Parser le Markdown** avec `gray-matter` et `marked`
+1. **Transformer le markdown en html** avec Markedown It
 2. **Rendre les composants JSX** en HTML avec `preact-render-to-string`
 3. **Sauvegarder les fichiers** HTML dans `dist/`
 
