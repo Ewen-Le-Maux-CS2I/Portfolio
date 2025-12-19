@@ -10,7 +10,7 @@ const CONTENT_DIR = path.resolve('src/content')
 const DIST_DIR = path.resolve('dist')
 // Chemin de base GitHub Pages (doit correspondre à vite.config.js)
 const basePath = '/Portfolio/'
-const templatePath = path.resolve('index.html')
+const templatePath = path.resolve('dist/index.html')
 const baseTemplate = fs.readFileSync(templatePath, 'utf-8')
 
 const md = new MarkdownIt('commonmark', { 
